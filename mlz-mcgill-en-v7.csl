@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="note" default-locale="en" version="1.1mlz1">
   <info>
     <title>MLZ Canadian Guide to Uniform Legal Citation, 7th ed. (McGill Guide)</title>
@@ -76,6 +77,14 @@
         <single>s&#160;v</single>
         <multiple>s&#160;vv</multiple>
       </term>
+
+      <term name="director" form="verb-short">dir</term>
+      <term name="editor" form="verb-short">ed</term>
+      <term name="editorial-director" form="verb-short">ed</term>
+      <term name="illustrator" form="verb-short">illus</term>
+      <term name="translator" form="verb-short">trans</term>
+      <term name="editortranslator" form="verb-short">ed &amp; trans</term>
+
       <term form="long" name="verse">
         <single>at v</single>
         <multiple>at vv</multiple>
@@ -1919,7 +1928,7 @@
         <text font-style="italic" variable="container-title"/>
         <choose>
           <if match="any" variable="volume">
-            <group delimiter="&#160;:">
+            <group delimiter=":">
               <number variable="volume"/>
               <number variable="issue"/>
             </group>
@@ -1951,7 +1960,7 @@
             <date date-parts="year" form="text" prefix="(" suffix=")" variable="issued"/>
           </else>
         </choose>
-        <group delimiter="&#160;: ">
+        <group delimiter=":">
           <number variable="volume"/>
           <number variable="issue"/>
           <number form="numeric" variable="number-of-volumes"/>
@@ -1967,7 +1976,7 @@
   </macro>
   <macro name="mcgill-locators-note">
     <group delimiter=" ">
-      <group delimiter="&#160;: ">
+      <group delimiter=":">
         <number variable="volume"/>
         <number variable="issue"/>
         <number form="numeric" variable="number-of-volumes"/>
@@ -2029,7 +2038,7 @@
         <if variable="author">
           <names delimiter=", " variable="editor">
             <name and="text" delimiter=", "/>
-            <label form="verb-short" prefix=", " text-case="lowercase"/>
+            <label form="short" prefix=", " text-case="lowercase"/>
           </names>
           <choose>
             <if type="chapter" variable="author"/>
@@ -2277,7 +2286,7 @@
   <macro name="mcgill-locators">
     <group delimiter=" ">
       <date date-parts="year-month-day" form="text" variable="issued"/>
-      <group delimiter="&#160;: ">
+      <group delimiter=":">
         <number variable="volume"/>
         <number variable="issue"/>
         <number form="numeric" variable="number-of-volumes"/>
@@ -2398,7 +2407,7 @@
         <text font-style="italic" variable="container-title"/>
         <choose>
           <if match="any" variable="volume">
-            <group delimiter="&#160;:">
+            <group delimiter=":">
               <number variable="volume"/>
               <number variable="issue"/>
             </group>
@@ -2425,7 +2434,7 @@
             <date date-parts="year" form="text" prefix="(" suffix=")" variable="issued"/>
           </else>
         </choose>
-        <group delimiter="&#160;: ">
+        <group delimiter=":">
           <number variable="volume"/>
           <number variable="issue"/>
           <number form="numeric" variable="number-of-volumes"/>

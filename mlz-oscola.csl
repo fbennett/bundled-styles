@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="note" default-locale="en-GB" page-range-format="minimal-two" version="1.1mlz1" year-range-format="minimal-two">
   <info>
     <title>MLZ OSCOLA - Oxford Standard for Citation of Legal Authorities</title>
@@ -278,7 +279,14 @@
         <text font-style="italic" variable="hereinafter"/>
       </if>
       <else-if type="legal_case">
-        <text font-style="italic" variable="title-short"/>
+        <choose>
+          <if variable="title-short">
+            <text font-style="italic" variable="title-short" form="short"/>
+          </if>
+          <else>
+            <text font-style="italic" variable="title" form="short"/>
+          </else>
+        </choose>
       </else-if>
       <else-if type="bill gazette legislation regulation">
         <text variable="title"/>
@@ -351,16 +359,19 @@
       <if match="none" variable="title">
         <choose>
           <if type="interview">
-            <text term="interview" text-case="lowercase"/>
+            <text term="interview" text-case="lowercase" form="short"/>
           </if>
           <else-if match="any" type="manuscript speech">
-            <text variable="genre"/>
+            <text variable="genre" form="short"/>
           </else-if>
           <else-if type="personal_communication">
             <text macro="issued"/>
           </else-if>
         </choose>
       </if>
+      <else-if type="book" variable="title-short" match="all">
+        <text font-style="italic" form="short" variable="title-short"/>
+      </else-if>
       <else-if type="book">
         <text font-style="italic" form="short" variable="title"/>
       </else-if>
@@ -503,7 +514,7 @@
   </macro>
   <macro name="publisher">
     <choose>
-      <if match="none" type="periodical">
+      <if match="none" variable="locator-revision locator-date">
         <text form="short" strip-periods="true" variable="publisher"/>
       </if>
     </choose>
@@ -511,7 +522,7 @@
   <macro name="issued">
     <choose>
       <if type="classic"/>
-      <else-if type="periodical">
+      <else-if variable="locator-revision locator-date" match="any">
         <group delimiter=", ">
           <group delimiter=" ">
             <text variable="locator-revision"/>
@@ -648,12 +659,8 @@
       </else-if>
       <else>
         <group delimiter=", ">
-          <choose>
-            <if match="none" type="periodical">
-              <text macro="title"/>
-              <text macro="container-contributors-context"/>
-            </if>
-          </choose>
+          <text macro="title"/>
+          <text macro="container-contributors-context"/>
           <text macro="container-title-chapter"/>
           <choose>
             <if type="article-magazine article-newspaper">
@@ -697,17 +704,17 @@
   </macro>
   <macro name="container-title-chapter">
     <choose>
-      <if match="any" type="article-newspaper paper-conference song chapter entry-encyclopedia entry-dictionary periodical video broadcast">
+      <if match="any" type="article-newspaper paper-conference song chapter entry-encyclopedia entry-dictionary video broadcast" variable="locator-revision locator-date">
         <text font-style="italic" strip-periods="true" variable="container-title"/>
       </if>
     </choose>
   </macro> 
   <macro name="book-parts">
     <choose>
-      <if match="any" type="book chapter periodical broadcast video">
+      <if match="any" type="book chapter broadcast video" variable="locator-revision locator-date">
         <group delimiter=", ">
           <choose>
-            <if match="any" type="periodical broadcast video" variable="editor">
+            <if match="any" type="broadcast video" variable="locator-revision locator-date editor">
               <group delimiter=" ">
                 <choose>
                   <if is-numeric="volume">
@@ -719,7 +726,7 @@
             </if>
           </choose>
           <choose>
-            <if type="periodical">
+            <if variable="locator-revision locator-date" match="any">
               <group delimiter=" ">
                 <choose>
                   <if locator="page" match="none">
@@ -736,7 +743,7 @@
   </macro>
   <macro name="common-volume">
     <choose>
-      <if match="none" type="article-magazine paper-conference article-journal periodical classic legal_case motion_picture video" variable="editor">
+      <if match="none" type="article-magazine paper-conference article-journal classic legal_case motion_picture video" variable="locator-revision locator-date editor">
         <group delimiter=" ">
           <label form="short" variable="volume"/>
           <number variable="volume"/>
@@ -836,7 +843,8 @@
   <macro name="oscola-non-paragraph-point-locators">
     <group delimiter=" ">
       <choose>
-        <if locator="paragraph" match="all" type="periodical"/>
+        <if locator="paragraph" match="all" variable="locator-revision"/>
+        <else-if locator="paragraph" match="all" variable="locator-date"/>
         <else>
           <choose>
             <if locator="page" match="none">

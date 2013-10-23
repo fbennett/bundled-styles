@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="note" default-locale="en" version="1.1mlz1">
   <info>
     <title>New Zealand Law Style Guide (MLZ)</title>
@@ -550,7 +551,7 @@
           <text form="short" variable="genre"/>
         </if>
       </choose>
-      <date date-parts="year" form="text" prefix="(" suffix=")" variable="issued"/>
+      <text macro="issued-long" prefix="(" suffix=")"/>
       <text variable="container-title"/>
     </group>
   </macro>
@@ -630,7 +631,8 @@
           <text prefix="(" suffix=")" variable="jurisdiction"/>
         </if>
       </choose>
-    </group>
+	</group>
+	<number variable="locator" prefix=", cl "/>
   </macro>
 
   <macro name="oscola-us-bill-first">
@@ -1380,8 +1382,11 @@
           <if variable="hereinafter">
             <text font-style="italic" variable="hereinafter"/>
           </if>
-          <else>
+          <else-if variable="title-short">
             <text font-style="italic" form="short" strip-periods="true" variable="title-short"/>
+          </else-if>
+          <else>
+            <text font-style="italic" form="short" strip-periods="true" variable="title"/>
           </else>
         </choose>
       </else-if>
@@ -1735,8 +1740,24 @@
       </else>
     </choose>
   </macro>
+  <macro name="nz-gazette">	
+    <group delimiter=" ">
+      <text macro="title-short"/>
+      <text macro="issued-long" prefix="(" suffix=")"/>
+      <number variable="volume"/>
+      <text font-style="italic" macro="container-title"/>
+      <number variable="page"/>      
+    </group>
+  </macro> 
   <macro name="jurisdictions-gazette">
-    <text macro="jurisdictions-legislation"/>
+    <choose>
+      <if jurisdiction="nz">
+      	<text macro="nz-gazette"/>
+      </if>
+      <else>
+      	<text macro="jurisdictions-legislation"/>
+      </else>
+    </choose>
   </macro>
   <macro name="jurisdictions-legislation">
     <choose>
@@ -1849,7 +1870,7 @@
       </if>
     </choose>
   </macro>
-zzz  <macro name="nzl-citation">
+  <macro name="nzl-citation">
     <choose>
       <if type="hearing" position="first" jurisdiction="us" match="all">
         <text macro="jurisdictions-hearing"/>

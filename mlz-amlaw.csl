@@ -1737,6 +1737,9 @@
       </choose>
      </group>
   </macro>
+  <macro name="us-hearing-first">
+    <text macro="us-bill-first"/>
+  </macro>
   <macro name="us-bill-first">
     <group delimiter=" ">
       <group delimiter=", ">
@@ -1824,6 +1827,9 @@
         </else>
       </choose>
     </group>
+  </macro>
+  <macro name="us-hearing-subsequent">
+    <text macro="us-bill-subsequent"/>
   </macro>
   <macro name="us-bill-subsequent">
     <group delimiter=" ">
@@ -2166,10 +2172,10 @@
       <if jurisdiction="us ca nz" match="any">
         <choose>
           <if position="near-note">
-            <text macro="us-bill-subsequent"/>
+            <text macro="us-hearing-subsequent"/>
           </if>
           <else>
-            <text macro="us-bill-first"/>
+            <text macro="us-hearing-first"/>
           </else>
         </choose>
       </if>
@@ -2664,7 +2670,7 @@
         <institution delimiter="-" institution-parts="short"/>
       </names>
       <text label-form="short" macro="std-locator-non-page-label"/>
-      <date date-parts="year-month-day" form="text" variable="original-date"/>
+      <date date-parts="year-month-day" form="text" variable="event-date"/>
       <group delimiter=" ">
         <number variable="volume"/>
         <text form="short" variable="container-title"/>
